@@ -2,7 +2,7 @@
 session_start();
 require '../db.php';
 
-if (!isset($_SESSION['id_petugas']) || $_SESSION['id_level'] != '2') {
+if (!isset($_SESSION['id_petugas']) || $_SESSION['id_level'] != '1') {
     header("Location: ../login.php");
     exit;
 }
@@ -195,8 +195,9 @@ if (isset($_POST['delete'])) {
                 <td>Rp<?= number_format($transaksi['jumlah'], 0, ',', '.') ?></td>
                 <td><?= htmlspecialchars($nasabah_tujuan['nama'] ?? 'N/A') ?></td>
                 <td>
-                    <form method="POST" style="display:inline;">
+                    <form method="POST" action="hapus_transaksi.php" style="display:inline;" onsubmit="return confirmDelete();">
                         <input type="hidden" name="transaksi_id" value="<?= $transaksi['id_transaksi'] ?>">
+                        <input type="hidden" name="id_nasabah" value="<?= $id_nasabah ?>"> <!-- Menyimpan id_nasabah untuk redirect -->
                         <button type="submit" name="delete" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
                 </td>
@@ -212,6 +213,10 @@ function printReport(id) {
     printWindow.onload = function() {
         printWindow.print();
     };
+}
+
+function confirmDelete() {
+    return confirm("Apakah Anda yakin ingin menghapus transaksi ini?");
 }
 </script>
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
