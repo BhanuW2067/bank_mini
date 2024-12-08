@@ -162,7 +162,7 @@ if (isset($_POST['delete'])) {
         <a href="laporan_excel.php?id=<?= $id_nasabah ?>" class="btn btn-info">Unduh Laporan Excel</a>
     </div>
 
-    <h3>Laporan Transaksi untuk Nasabah: <?= htmlspecialchars($nasabah['nama']) ?></h3>
+    <h3>Laporan Transaksi untuk Nasabah: <?= $nasabah['nama'] ?></h3>
     <table>
         <thead>
             <tr>
@@ -191,9 +191,9 @@ if (isset($_POST['delete'])) {
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= date('d/m/Y', strtotime($transaksi['tanggal'])) ?></td>
-                <td><?= htmlspecialchars($transaksi['jenis_transaksi']) ?></td>
+                <td><?= $transaksi['jenis_transaksi'] ?></td>
                 <td>Rp<?= number_format($transaksi['jumlah'], 0, ',', '.') ?></td>
-                <td><?= htmlspecialchars($nasabah_tujuan['nama'] ?? 'N/A') ?></td>
+                <td><?= $nasabah_tujuan['nama'] ?? 'N/A' ?></td>
                 <td>
                     <form method="POST" action="hapus_transaksi.php" style="display:inline;" onsubmit="return confirmDelete();">
                         <input type="hidden" name="transaksi_id" value="<?= $transaksi['id_transaksi'] ?>">
