@@ -19,12 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $no_telepon = $_POST['no_telepon'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
 
-    $sql = "UPDATE nasabah SET nama='$nama', saldo='$saldo', alamat='$alamat', no_telepon='$no_telepon', tanggal_lahir='$tanggal_lahir' WHERE no_rekening='$no_rekening'";
+    $sql = "UPDATE nasabah SET nama='$nama', no_rekening='$no_rekening', saldo='$saldo', alamat='$alamat', no_telepon='$no_telepon', tanggal_lahir='$tanggal_lahir' WHERE id_nasabah='$id_nasabah'";
 
     if ($conn->query($sql)) {
-        $message = "Nasabah berhasil diperbarui!";
+        echo "<script>
+                alert('Nasabah berhasil diperbarui!');
+                window.location.href = 'data_nasabah.php'; // Ganti dengan URL halaman data nasabah
+              </script>";
     } else {
-        $error = "Terjadi kesalahan saat memperbarui nasabah!";
+        $error = "Terjadi kesalahan saat memperbarui nasabah: " . $conn->error; // Menampilkan error dari query
     }
 }
 ?>
@@ -115,10 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 
     <div class="container mt-5">
-        <h3>Tambah Nasabah</h3>
-        <?php if (isset($message)): ?>
-            <div class="alert alert-success"><?= $message ?></div>
-        <?php endif; ?>
+        <h3>Edit Nasabah</h3>
         <?php if (isset($error)): ?>
             <div class="alert alert-danger"><?= $error ?></div>
         <?php endif; ?>
