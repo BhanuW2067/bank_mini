@@ -2,7 +2,7 @@
 session_start();
 require '../db.php';
 
-if (!isset($_SESSION['id_petugas']) || $_SESSION['id_level'] != '1') {
+if (!isset($_SESSION['id_petugas']) || $_SESSION['id_level'] != '2') {
     header("Location: ../login.php");
     exit;
 }
